@@ -36,7 +36,10 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public void delete(Student student) {
 		EntityManager em = JpaUtils.getEntityManager();
+		em.getTransaction().begin();
+		student = em.find(Student.class, student.getId());
 		em.remove(student);
+		em.getTransaction().commit();
 	}
 
 	@Override
